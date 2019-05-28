@@ -1,5 +1,6 @@
 # qimalloc
 
+![Build](https://circleci.com/gh/wasmx/qimalloc.svg?style=shield&circle-token=:circle-token)
 ![Version](https://img.shields.io/crates/v/qimalloc.svg)
 
 Quick Incremental (Wasteful) Memory Allocator.
