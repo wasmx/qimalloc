@@ -1,27 +1,28 @@
-/// qimalloc aka. Quick Incremental (Wasteful) Memory Allocator
-///
-/// This memory allocator will not release any memory.
-/// Its main use case is in short-lived environment, such as [WebAssembly](https://github.com/webassembly) binaries.
-///
-/// **Experimental: do not use this in any real world use case!**
-///
-/// If you are looking for a small, yet powerful allocator, we suggest to check out [wee_alloc](https://github.com/rustwasm/wee_alloc).
-///
-/// To use qimalloc, simply include it as a dependency in your project.
-///
-/// # Examples
-/// ```ignore
-/// extern crate qimalloc;
-///
-/// #[global_allocator]
-/// static ALLOC: qimalloc::QIMalloc = qimalloc::QIMalloc::INIT;
-///
-/// pub fn main() {
-/// }
-/// ```
-///
-/// Please note this example will only work on wasm32 targets as support for anything else is not implemented at this time.
-///
+//! qimalloc aka. Quick Incremental (Wasteful) Memory Allocator
+//!
+//! This memory allocator will not release any memory.
+//! Its main use case is in short-lived environment, such as [WebAssembly](https://github.com/webassembly) binaries.
+//!
+//! **Experimental: do not use this in any real world use case!**
+//!
+//! If you are looking for a small, yet powerful allocator, we suggest to check out [wee_alloc](https://github.com/rustwasm/wee_alloc).
+//!
+//! To use qimalloc, simply include it as a dependency in your project.
+//!
+//! # Examples
+//! ```ignore
+//! extern crate qimalloc;
+//!
+//! #[global_allocator]
+//! static ALLOC: qimalloc::QIMalloc = qimalloc::QIMalloc::INIT;
+//!
+//! pub fn main() {
+//! }
+//! ```
+//!
+//! Please note this example will only work on wasm32 targets as support for anything else is not implemented at this time.
+//!
+
 use core::alloc::{GlobalAlloc, Layout};
 use core::cell::UnsafeCell;
 use core::ptr::null_mut;
