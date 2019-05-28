@@ -18,5 +18,8 @@ jobs:
              rustfmt --version
              cargo fmt --all -- --check
       - run:
-          name: Build
+          name: Build x86
+          command: cargo build --release --target=x86_64-unknown-linux-gnu
+      - run:
+          name: Build wasm32
           command: cargo build --release --target=wasm32-unknown-unknown

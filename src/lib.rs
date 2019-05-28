@@ -1,7 +1,9 @@
 use core::alloc::{GlobalAlloc, Layout};
-use core::arch::wasm32;
 use core::cell::UnsafeCell;
 use core::ptr::null_mut;
+
+#[cfg(target_arch = "wasm32")]
+use core::arch::wasm32;
 
 #[cfg(feature = "nightly")]
 use core::alloc::AllocErr;
@@ -26,6 +28,7 @@ fn round_to_align(size: usize, align: usize) -> usize {
 
 unsafe impl Sync for DumbAlloc {}
 
+#[cfg(target_arch = "wasm32")]
 impl DumbAlloc {
     pub const INIT: Self = DumbAlloc {
         ptr: UnsafeCell::new(0 as *mut u8),
@@ -70,6 +73,17 @@ impl DumbAlloc {
         } else {
             Err(AllocErr)
         }
+    }
+}
+
+#[cfg(not(target_arch = "wasm32"))]
+impl DumbAlloc {
+    pub const INIT: Self = DumbAlloc {
+        ptr: UnsafeCell::new(0 as *mut u8),
+    };
+
+    unsafe fn alloc_impl(&self, layout: Layout) -> Result<*mut u8, AllocErr> {
+        unimplemented!()
     }
 }
 
