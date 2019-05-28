@@ -1,0 +1,8 @@
+[package]
+name = "qimalloc"
+version = "0.1.0"
+authors = ["Sina Mahmoodi <itz.s1na@gmail.com>", "Alex Beregszaszi <alex@rtfs.hu>"]
+license = "Apache-2.0"
+repository = "https://github.com/wasmx/qimalloc"
+description = "Quick incremental memory allocator"
+edition = "2018"

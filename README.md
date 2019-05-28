@@ -1,5 +1,7 @@
 # qimalloc
 
+![Version](https://img.shields.io/crates/v/qimalloc.svg)
+
 Quick Incremental (Wasteful) Memory Allocator.
 
 This memory allocator will not release any memory. Its main use case is in short-lived environment, such as [WebAssembly](https://github.com/webassembly) binaries.
