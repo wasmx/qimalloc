@@ -11,7 +11,7 @@ use core::alloc::AllocErr;
 #[cfg(not(feature = "nightly"))]
 pub struct AllocErr;
 
-pub struct DumbAlloc {
+pub struct QIMalloc {
     // Pointer to last allocated byte
     ptr: UnsafeCell<*mut u8>,
 }
@@ -26,11 +26,11 @@ fn round_to_align(size: usize, align: usize) -> usize {
     }
 }
 
-unsafe impl Sync for DumbAlloc {}
+unsafe impl Sync for QIMalloc {}
 
 #[cfg(target_arch = "wasm32")]
-impl DumbAlloc {
-    pub const INIT: Self = DumbAlloc {
+impl QIMalloc {
+    pub const INIT: Self = QIMalloc {
         ptr: UnsafeCell::new(0 as *mut u8),
     };
 
@@ -77,8 +77,8 @@ impl DumbAlloc {
 }
 
 #[cfg(not(target_arch = "wasm32"))]
-impl DumbAlloc {
-    pub const INIT: Self = DumbAlloc {
+impl QIMalloc {
+    pub const INIT: Self = QIMalloc {
         ptr: UnsafeCell::new(0 as *mut u8),
     };
 
@@ -87,7 +87,7 @@ impl DumbAlloc {
     }
 }
 
-unsafe impl GlobalAlloc for DumbAlloc {
+unsafe impl GlobalAlloc for QIMalloc {
     unsafe fn alloc(&self, layout: Layout) -> *mut u8 {
         match self.alloc_impl(layout) {
             Ok(ptr) => ptr,
