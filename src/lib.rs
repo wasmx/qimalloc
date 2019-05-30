@@ -57,6 +57,7 @@ unsafe impl Sync for QIMalloc {}
 
 #[cfg(target_arch = "wasm32")]
 impl QIMalloc {
+    #[allow(clippy::declare_interior_mutable_const)]
     pub const INIT: Self = QIMalloc {
         ptr: UnsafeCell::new(0 as *mut u8),
     };
@@ -73,7 +74,7 @@ impl QIMalloc {
         let end = (cur_pages * PAGE_SIZE) as *mut u8;
 
         // If first time, start at end of initial allocated memory
-        if *ptr == 0 as *mut u8 {
+        if *ptr == null_mut() {
             *ptr = end;
         }
 
@@ -105,6 +106,7 @@ impl QIMalloc {
 
 #[cfg(not(target_arch = "wasm32"))]
 impl QIMalloc {
+    #[allow(clippy::declare_interior_mutable_const)]
     pub const INIT: Self = QIMalloc {
         ptr: UnsafeCell::new(0 as *mut u8),
     };
