@@ -1,3 +1,5 @@
+#![no_std]
+
 //! qimalloc aka. Quick Incremental (Wasteful) Memory Allocator
 //!
 //! This memory allocator will not release any memory.
